@@ -1,0 +1,307 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto&display=swap");
+
+:root {
+  --bg-color: rgb(20, 20, 20);
+}
+
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: "Roboto";
+  background-color: var(--bg-color);
+  color: white;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* Random Color Gen */
+.random{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+a{
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Main Page CSS */
+.main-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top:3rem;
+  padding-bottom: 4rem;
+}
+
+#cards {
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1rem;
+  width: calc(100%-20px);
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 0.02);
+  height: 260px;
+  width: 298px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative; /*so that the before element location is relative to the .card,not to the whole surrounding*/
+  display: grid;
+  place-items: center;
+  font-size: 1.3rem;
+  color: greenyellow;
+}
+
+/* We can use the before pseudo element coz its doesnt require any additional
+html 
+position it absolutely to the left and top sides,ensure its height and width are qual to its parent
+*/
+.card::before {
+  height: 100%;
+  opacity: 0;
+  /* transition: opacity 500ms; */
+  width: 100%;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  border-radius: inherit; /*keeing the original properties*/
+  /* Now comes the glow effect */
+  background: radial-gradient(
+    1000px circle at 100px 100px,
+    /*100px 100px ki jagh yeh */ rgba(255, 255, 255, 0.06),
+    transparent 25%
+  );
+  /*Now we need to define the logic,where we will move the origin position according to our mouse movement  */
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.wrapper {
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: aqua;
+}
+
+.container {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: fixed;
+}
+
+
+/* Customizing Scrollbar */
+
+::-webkit-scrollbar {
+  width: 1.2rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0.863);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(10, 112, 236);
+  border-radius: 1rem;
+  border: 0.4rem solid transparent; /*This property wont work until the below waali doesnt work*/
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(49, 49, 100);
+}
+
+/* SPINNER PART 2*/
+.spinner {
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid rgb(68, 35, 35);
+  border-color: rgb(106, 26, 26) transparent; /* This property of transparent gives it a look of a spinner otherwise,it looks a circle*/
+  animation: spinner 1.2s linear infinite;
+}
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* logo text gradient */
+.logo{
+  font-size: 2rem;
+  background: linear-gradient(to right, #ea6de8 0%, #91ff00f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding:2rem;
+}
+
+
+/* Loader */
+
+.loader {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  animation: rotate 1s infinite;
+  height: 50px;
+  width: 50px;
+}
+
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+  content: "";
+  display: block;
+  height: 20px;
+  width: 20px;
+}
+.loader:before {
+  animation: ball1 1s infinite;
+  background-color: #fff;
+  box-shadow: 30px 0 0 #ff3d00;
+  margin-bottom: 10px;
+}
+.loader:after {
+  animation: ball2 1s infinite;
+  background-color: #ff3d00;
+  box-shadow: 30px 0 0 #fff;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg) scale(0.8);
+  }
+  50% {
+    transform: rotate(360deg) scale(1.2);
+  }
+  100% {
+    transform: rotate(720deg) scale(0.8);
+  }
+}
+
+@keyframes ball1 {
+  0% {
+    box-shadow: 30px 0 0 #ff3d00;
+  }
+  50% {
+    box-shadow: 0 0 0 #ff3d00;
+    margin-bottom: 0;
+    transform: translate(15px, 15px);
+  }
+  100% {
+    box-shadow: 30px 0 0 #ff3d00;
+    margin-bottom: 10px;
+  }
+}
+
+@keyframes ball2 {
+  0% {
+    box-shadow: 30px 0 0 #fff;
+  }
+  50% {
+    box-shadow: 0 0 0 #fff;
+    margin-top: -20px;
+    transform: translate(15px, 15px);
+  }
+  100% {
+    box-shadow: 30px 0 0 #fff;
+    margin-top: 0;
+  }
+}
+
+/* CAROUSEUL  */
+
+.carousel {
+  overflow: hidden;
+  width: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.inner {
+  white-space: nowrap;
+  transition: transform 0.3s;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.carousel-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 490px;
+  background-color: #fff;
+}
+
+.carousel-item-text {
+  font-size: 1.15rem;
+  margin: 40px 0 40px 0;
+  padding: 0 20px 0 20px;
+  white-space: normal;
+  color: #617d98;
+}
+.carousel-img {
+  width: 250px;
+  padding: 0 20px 0 20px;
+}
+
+
+.carousel-buttons {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.button-arrow {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.indicators {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.indicator-buttons {
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.indicators > button {
+  margin: 5px;
+  background: none;
+}
+
+.indicator-symbol {
+  color: #26343f;
+}
+
+.indicator-symbol-active {
+  color: #ffffff;
+}
